@@ -14,7 +14,7 @@ TEST_CASE("infers the breach according to limits")
 
 TEST_CASE("classify breach type accordingly")
 {
-    REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING,-5 == TOO_LOW);
+    REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING,-5) == TOO_LOW);
     REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING,34) == TOO_HIGH);
     REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING,25) == NORMAL);
     REQUIRE(classifyTemperatureBreach(HI_ACTIVE_COOLING, 47) == TOO_HIGH);
@@ -24,6 +24,15 @@ TEST_CASE("classify breach type accordingly")
     REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, 0) == NORMAL);
     REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING,5) == TOO_LOW);
 }
+            
+TEST_CASE("Check and Alert of coolingType Temperature for HI_ACTIVE_COOLING ")
+{
+  BatteryCharacter batteryChar;
+  batteryChar.coolingType = HI_ACTIVE_COOLING;
+  assert(checkAndAlert(TO_CONTROLLER,batteryChar,0));
+  assert(checkAndAlert(TO_EMAIL,batteryChar,45));		
+}
+            
 TEST_CASE("Check and Alert of coolingType Temperature for PASSIVE_COOLING ")
 {
   BatteryCharacter batteryChar;
@@ -32,10 +41,3 @@ TEST_CASE("Check and Alert of coolingType Temperature for PASSIVE_COOLING ")
   assert(checkAndAlert(TO_EMAIL,batteryChar,30));		
 }
 
-TEST_CASE("Check and Alert of coolingType Temperature for HI_ACTIVE_COOLING ")
-{
-  BatteryCharacter batteryChar;
-  batteryChar.coolingType = HI_ACTIVE_COOLING;
-  assert(checkAndAlert(TO_CONTROLLER,batteryChar,0));
-  assert(checkAndAlert(TO_EMAIL,batteryChar,45));		
-}
