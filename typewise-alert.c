@@ -51,7 +51,7 @@ int checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double 
      else 
        {
         sendToEmail(breachType);
-        ret_val = 0;
+        ret_val = 1;
        }
     return  ret_val ;
 }
