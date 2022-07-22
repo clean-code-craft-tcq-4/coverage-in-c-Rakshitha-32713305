@@ -75,6 +75,6 @@ void sendToEmail(BreachType breachType)
   }
   else
   {
-      printf("%s :temperature is normal\n",recepient);
+      //do nothing
   }
 }
